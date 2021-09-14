@@ -15,6 +15,9 @@
         <requiredProperty key="MainClassName">
 			<defaultValue>${artifact.replaceAll("-\w+$", "").replaceAll("^a|-a", "A").replaceAll("^b|-b", "B").replaceAll("^c|-c", "C").replaceAll("^d|-d", "D").replaceAll("^e|-e", "E").replaceAll("^f|-f", "F").replaceAll("^g|-g", "G").replaceAll("^h|-h", "H").replaceAll("^i|-i", "I").replaceAll("^j|-j", "J").replaceAll("^k|-k", "K").replaceAll("^l|-l", "L").replaceAll("^m|-m", "M").replaceAll("^n|-n", "N").replaceAll("^o|-o", "O").replaceAll("^p|-p", "P").replaceAll("^q|-q", "Q").replaceAll("^r|-r", "R").replaceAll("^s|-s", "S").replaceAll("^t|-t", "T").replaceAll("^u|-u", "U").replaceAll("^v|-v", "V").replaceAll("^w|-w", "W").replaceAll("^x|-x", "X").replaceAll("^y|-y", "Y").replaceAll("^z|-z", "Z")}</defaultValue>
         </requiredProperty>
+        <requiredProperty key="MainClassNameLow">
+			<defaultValue>${MainClassName.toLowerCase()}</defaultValue>
+        </requiredProperty>
         <requiredProperty key="MainClassNameObj">
 			<defaultValue>${MainClassName.substring(0,1).toLowerCase()}${MainClassName.substring(1)}</defaultValue>
         </requiredProperty>
@@ -23,6 +26,9 @@
         </requiredProperty>
         <requiredProperty key="apiType">
 			<defaultValue>${artifact.replaceAll(".*-(\w+)$", "$1")}</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="apiTypeCap">
+			<defaultValue>${apiType.substring(0,1).toUpperCase()}${apiType.substring(1).toLowerCase()}</defaultValue>
         </requiredProperty>
         <requiredProperty key="package">
             <defaultValue>${group.toLowerCase().replace("-", ".")}.${artifact.toLowerCase().replace("-", ".")}</defaultValue>
@@ -33,7 +39,7 @@
         <fileSet filtered="true" packaged="true">
             <directory>src/main/java</directory>
         </fileSet>
-        <fileSet>
+        <fileSet filtered="true" packaged="true">
             <directory>src/test/java</directory>
         </fileSet>
     </fileSets>

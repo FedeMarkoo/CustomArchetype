@@ -2,7 +2,8 @@ package ${package};
 
 import com.prosegur.cash.integration.testhelper.generators.ObjectGenerator;
 import ${package}.data.model.${MainClassName};
-import ${package}.data.repository.${MainClassName}Repository;
+import ${package}.data.repository.${MainClassName}QUERYRepository;
+import ${package}.data.repository.${MainClassName}CRUDRepository;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
@@ -30,7 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles(value = "test", inheritProfiles = false)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ${MainClassName}TestForCoverage {
+public class ${MainClassName}${apiTypeCap}TestForCoverage {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -42,13 +43,15 @@ public class ${MainClassName}TestForCoverage {
 
 
     @MockBean
-    ${MainClassName}Repository ${MainClassNameObj}Repository;
+    ${MainClassName}QueryRepository ${MainClassNameObj}QueryRepository;
+    @MockBean
+	${MainClassName}CRUDRepository ${MainClassNameObj}CRUDRepository;
 
     @Test
     public void test() {
         final ${MainClassName} instance = ObjectGenerator.createInstanceFully(${MainClassName}.class);
 
-        Mockito.when(this.${MainClassNameObj}Repository.findById(any())).thenReturn(Optional.of(instance));
+        Mockito.when(this.${MainClassNameObj}CRUDRepository.findById(any())).thenReturn(Optional.of(instance));
         RestAssuredMockMvc.given()
                 .contentType(ContentType.JSON)
                 .param("id", instance.getId())
@@ -63,7 +66,7 @@ public class ${MainClassName}TestForCoverage {
         ignoredFields.add("");
 
         final ${MainClassName} instance = ObjectGenerator.createInstance(${MainClassName}.class, ignoredFields);
-		Mockito.when(this.${MainClassNameObj}Repository.findById(any())).thenReturn(Optional.of(instance));
+		Mockito.when(this.${MainClassNameObj}CRUDRepository.findById(any())).thenReturn(Optional.of(instance));
 		RestAssuredMockMvc.given()
                 .contentType(ContentType.JSON)
                 .param("id", instance.getId())
@@ -78,7 +81,7 @@ public class ${MainClassName}TestForCoverage {
         valuedFields.put("", new ArrayList<>());
 
         final ${MainClassName} instance = ObjectGenerator.createInstance(${MainClassName}.class, valuedFields);
-        Mockito.when(this.${MainClassNameObj}Repository.findById(any())).thenReturn(Optional.of(instance));
+        Mockito.when(this.${MainClassNameObj}CRUDRepository.findById(any())).thenReturn(Optional.of(instance));
 
         RestAssuredMockMvc.given()
                 .contentType(ContentType.JSON)
